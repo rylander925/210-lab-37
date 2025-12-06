@@ -1,5 +1,5 @@
 /*
-COMSC-210 | Lab 37 | Rylan Der
+COMSC-210 | Lab 38 | Rylan Der
 IDE Used: Visual Studio Code
 */
 
@@ -20,7 +20,7 @@ int main() {
     const string FILENAME = "data.txt";
     const int DISPLAY_AMOUNT = 100;
     map<int, list<string>> hash_table;
-    
+
     read_file(FILENAME, hash_table);
     hash_table_display(DISPLAY_AMOUNT, hash_table);
 }
