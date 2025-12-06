@@ -11,14 +11,11 @@ IDE Used: Visual Studio Code
 using namespace std;
 
 int sum_ascii(string);
+int read_file(string filename);
 
 int main() {
-    cout << sum_ascii("Tomato") << endl;
-    cout << sum_ascii("tomato") << endl;
-    cout << sum_ascii("  ") << endl;
-    cout << sum_ascii("`1234567890-=~!@#$%^&*()_+") << endl;
-    cout << sum_ascii("\n\t") << endl;
-
+    const string FILENAME = "data.txt";
+    cout << read_file(FILENAME) << endl;
     return 0;
 }
 
@@ -29,6 +26,30 @@ These targets are present in the dataset and can be used for testing:
 666D109AA22E
 E1D2665B21EA
 */
+
+/**
+ * Reads and processes file contents
+ * Currently sums ascii values of file
+ * @param filename File to read
+ * @return sum of ascii values of file contents (not including newlines)
+ */
+int read_file(string filename) {
+    //validate file opens properly
+    ifstream infile;
+    infile.open(filename);
+    if (!infile.is_open()) {
+        cout << "ERROR: Could not open file \"" << filename << "\"" << endl;
+        throw ios_base::failure("File open error");
+    }
+
+    //iterate through file and process contents
+    int sum = 0;
+    string str;
+    while(getline(infile, str)) {
+        sum += sum_ascii(str);
+    }
+    return sum;
+}
 
 /**
  * Sums ascii values of the characters of the given string
