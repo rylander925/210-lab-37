@@ -25,9 +25,10 @@ int main() {
     const int DISPLAY_AMOUNT = 100;
     enum Options{DISPLAY = 1, SEARCH = 2, ADD = 3, REMOVE = 4, MODIFY = 5, EXIT = 6};
 
-    map<int, list<string>> hash_table;
-    int option;
-    string user_string;
+    map<int, list<string>> hash_table; //hash table of strings
+    int option;                        //integer to store user's menu option
+    string user_string;                //string to store user input for various menu functions
+
     read_file(FILENAME, hash_table);
 
     do {
