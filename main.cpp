@@ -20,17 +20,10 @@ int main() {
     const string FILENAME = "data.txt";
     const int DISPLAY_AMOUNT = 100;
     map<int, list<string>> hash_table;
+    
     read_file(FILENAME, hash_table);
     hash_table_display(DISPLAY_AMOUNT, hash_table);
 }
-
-/* 
-These targets are present in the dataset and can be used for testing:
-536B9DFC93AF
-1DA9D64D02A0
-666D109AA22E
-E1D2665B21EA
-*/
 
 /**
  * Displays the first of a specified number of elements in the given hash table
@@ -39,14 +32,14 @@ E1D2665B21EA
  * @param spacing Spacing between table columns
  */
 void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing) {
-    cout << setw(spacing) << left << "Index" << setw(spacing) << left << "Value" << endl; //display table header
+    cout << setw(spacing) << left << "Number" << setw(spacing) << left << "Index" << setw(spacing) << left << "Value" << endl; //display table header
 
     int num = 0;
     //iterate through hash_table to DISPLAY_AMOUNT or the size of the hash table
     for (map<int, list<string>>::iterator it = hash_table.begin(); num < display_amount && it != hash_table.end(); it++) {
         //iterate through list associated with each index, incrementing i for each value outputted to display correct number of values
         for (string str : it->second) {
-            cout << setw(spacing) << left << it->first << setw(spacing) << left << str << endl;
+            cout << setw(spacing) << left << " " + to_string(num + 1) + "." << setw(spacing) << left << it->first << setw(spacing) << left << str << endl;
             num++;
         }
     }
