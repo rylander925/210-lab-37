@@ -16,7 +16,7 @@ const int STREAM_IGNORE_CHARS = 100;
 int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
-void hash_table_search(string str, map<int, list<string>>& hash_table);
+list<string>::iterator hash_table_search(string str, map<int, list<string>>& hash_table);
 void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing = 10);
 
 int main() {
@@ -74,12 +74,15 @@ int main() {
     } while (option != EXIT);
     cout << "Exiting" << endl;
 }
+
 /**
- * If found, outputs the hash index and list position of the given string in the hash table.
+ * If found, outputs the hash index and list position of the given string in the hash table, and returns an iterator to that element.
  * @param str String to find
  * @param hash_table Hash table to search
+ * @return Iterator to element if found, or iterator to the end of the list of the hash tables beginning iterator
+ * @note If not found, returns iterator to a list element (of the first list in the hash_table) 
  */
-void hash_table_search(string str, map<int, list<string>>& hash_table) {
+list<string>::iterator hash_table_search(string str, map<int, list<string>>& hash_table) {
     int index = gen_hash_index(str);
     if (hash_table.find(index) != hash_table.end()) {
         //If hash index is found, finds the position of the string in the list
@@ -90,15 +93,14 @@ void hash_table_search(string str, map<int, list<string>>& hash_table) {
             list_pos++;
         }
 
-        //if found, outputs index and list position, or error otherwise
+        //outputs index and list position if found
         if (it != hash_table.at(index).end()) {
             cout << "Key \"" << str << "\" found at hash index " << index << ", list index " << list_pos << endl;
-        } else {
-            cout << "Key \"" << str << "\" not found." << endl;
+            return it; //returns iterator to specified element if found
         }
-    } else {
-        cout << "Key \"" << str << "\" not found." << endl;
     }
+    cout << "Key \"" << str << "\" not found." << endl;
+    return hash_table.begin()->second.end(); //returns iterator to end of the first hash_index's list as an error value
 }
 
 /**
