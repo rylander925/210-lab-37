@@ -13,13 +13,12 @@ using namespace std;
 int sum_ascii(string);
 
 int main() {
-    char a = 'A';
-    cout << a << endl;
-    cout << (int) a << endl;
-    int b = 66;
-    cout << b << endl;
-    cout << (char) b << endl;
     
+    cout << sum_ascii("Tomato") << endl;
+    cout << sum_ascii("tomato") << endl;
+    cout << sum_ascii("  ") << endl;
+    cout << sum_ascii("`1234567890-=~!@#$%^&*()_+") << endl;
+    cout << sum_ascii("\n\t") << endl;
 
     return 0;
 }
@@ -38,5 +37,9 @@ E1D2665B21EA
  * @return Sum of ascii values as an integer
  */
 int sum_ascii(string str) {
-    
+    int sum = 0;
+    for (char c : str) { //iterate through each character in str
+        sum += (int) c;  //sum ascii value of each char
+    }
+    return sum;
 }
