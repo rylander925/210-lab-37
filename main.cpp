@@ -33,12 +33,12 @@ int main() {
     do {
         //Display menu
         cout << "Menu options: " << endl;
-        cout << " " << DISPLAY << ". Display first 100 entries" << endl;
-        cout << " " << SEARCH << ". Search for a key" << endl;
-        cout << " " << ADD << ". Add a key" << endl;
-        cout << " " << REMOVE << ". Remove a key" << endl;
-        cout << " " << MODIFY << ". Modify a key" << endl;
-        cout << " " << EXIT << ". Exit" << endl;
+        cout << " " << DISPLAY  << ". Display first 100 entries"    << endl;
+        cout << " " << SEARCH   << ". Search for a key"             << endl;
+        cout << " " << ADD      << ". Add a key"                    << endl;
+        cout << " " << REMOVE   << ". Remove a key"                 << endl;
+        cout << " " << MODIFY   << ". Modify a key"                 << endl;
+        cout << " " << EXIT     << ". Exit"                         << endl;
         do {
             //retrieve input for menu option
             cout << "Enter menu choice: > ";
