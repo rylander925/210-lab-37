@@ -17,6 +17,7 @@ int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
 list<string>::iterator hash_table_search(string str, map<int, list<string>>& hash_table);
+void hash_table_remove(string str, map<int, list<string>>& hash_table);
 void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing = 10);
 
 int main() {
@@ -35,6 +36,7 @@ int main() {
         cout << " " << DISPLAY << ". Display first 100 entries" << endl;
         cout << " " << SEARCH << ". Search for a key" << endl;
         cout << " " << ADD << ". Add a key" << endl;
+        cout << " " << REMOVE << ". Remove a key" << endl;
         cout << " " << EXIT << ". Exit" << endl;
         do {
             //retrieve input for menu option
@@ -69,10 +71,30 @@ int main() {
                 hash_table_add(user_string, hash_table);
                 cout << "Added key \"" << user_string << "\" at hash index " << gen_hash_index(user_string) << endl; 
                 break;
+            case REMOVE:
+                cout << "Enter a string to remove > ";
+                getline(cin, user_string);
+                hash_table_remove(user_string, hash_table);
         }
         cout << endl;
     } while (option != EXIT);
     cout << "Exiting" << endl;
+}
+
+/**
+ * Removes the first instance of a string from the hash table if found
+ * @param str String to remove
+ * @param hash_table Hash table to search and remove from
+ */
+void hash_table_remove(string str, map<int, list<string>>& hash_table) {
+    //searches for string
+    auto it = hash_table_search(str, hash_table);
+    if (it != hash_table.begin()->second.end()) {//error value returned if not found
+
+        //removes that instance of the string, will not remove all duplicates if present
+        hash_table.at(gen_hash_index(str)).erase(it);
+        cout << "Removed key \"" << str << "\"" << endl;
+    }
 }
 
 /**
