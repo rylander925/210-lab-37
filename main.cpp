@@ -14,14 +14,14 @@ using namespace std;
 int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
-void hash_table_display(int display_amount, const map<int, list<string>>& hash_table, int spacing = 10);
+void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing = 10);
 
 int main() {
     const string FILENAME = "data.txt";
     const int DISPLAY_AMOUNT = 100;
     map<int, list<string>> hash_table;
     read_file(FILENAME, hash_table);
-    
+    hash_table_display(DISPLAY_AMOUNT, hash_table);
 }
 
 /* 
@@ -41,12 +41,13 @@ E1D2665B21EA
 void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing) {
     cout << setw(spacing) << left << "Index" << setw(spacing) << left << "Value" << endl; //display table header
 
+    int num = 0;
     //iterate through hash_table to DISPLAY_AMOUNT or the size of the hash table
-    for (map<int, list<string>>::iterator it = hash_table.begin(), int i = 0; i < display_amount && it != hash_table.end(); it++) { //does not update i, updates after outputting element
+    for (map<int, list<string>>::iterator it = hash_table.begin(); num < display_amount && it != hash_table.end(); it++) {
         //iterate through list associated with each index, incrementing i for each value outputted to display correct number of values
         for (string str : it->second) {
             cout << setw(spacing) << left << it->first << setw(spacing) << left << str << endl;
-            i++;
+            num++;
         }
     }
 }
