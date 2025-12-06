@@ -13,7 +13,6 @@ using namespace std;
 int sum_ascii(string);
 
 int main() {
-    
     cout << sum_ascii("Tomato") << endl;
     cout << sum_ascii("tomato") << endl;
     cout << sum_ascii("  ") << endl;
