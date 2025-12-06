@@ -16,6 +16,7 @@ const int STREAM_IGNORE_CHARS = 100;
 int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
+void hash_table_search(string str, map<int, list<string>>& hash_table);
 void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing = 10);
 
 int main() {
@@ -57,6 +58,27 @@ int main() {
         }
     } while (option != EXIT);
     cout << "Exiting" << endl;
+}
+/**
+ * If found, outputs the hash index and list position of the given string in the hash table.
+ * @param str String to find
+ * @param hash_table Hash table to search
+ */
+void hash_table_search(string str, map<int, list<string>>& hash_table) {
+    int index = gen_hash_index(str);
+    if (hash_table.find(index) != hash_table.end()) {
+        //If hash index is found, finds the position of the string in the list
+        int list_pos = 0;
+        auto it = hash_table.at(index).begin();
+        while (it != hash_table.at(index).end() && *it != str) {
+            it++;
+            list_pos++;
+        }
+        if (it == hash_table.at(index).end())
+        cout << "Key \"" << str << "\" found at hash index " << index << ", list index " << list_pos << endl;
+    } else {
+        cout << "Key \"" << str << "\" not found." << endl;
+    }
 }
 
 /**
