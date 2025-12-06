@@ -3,6 +3,7 @@ COMSC-210 | Lab 37 | Rylan Der
 IDE Used: Visual Studio Code
 */
 
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <map>
@@ -13,13 +14,14 @@ using namespace std;
 int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
+void hash_table_display(int display_amount, const map<int, list<string>>& hash_table, int spacing = 10);
 
 int main() {
     const string FILENAME = "data.txt";
+    const int DISPLAY_AMOUNT = 100;
     map<int, list<string>> hash_table;
-    cout << read_file(FILENAME) << endl;
-
-    return 0;
+    read_file(FILENAME, hash_table);
+    
 }
 
 /* 
@@ -29,6 +31,25 @@ These targets are present in the dataset and can be used for testing:
 666D109AA22E
 E1D2665B21EA
 */
+
+/**
+ * Displays the first of a specified number of elements in the given hash table
+ * @param display_amount Number of elements to display
+ * @param hash_table Hash table whose elements will be displayed 
+ * @param spacing Spacing between table columns
+ */
+void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing) {
+    cout << setw(spacing) << left << "Index" << setw(spacing) << left << "Value" << endl; //display table header
+
+    //iterate through hash_table to DISPLAY_AMOUNT or the size of the hash table
+    for (map<int, list<string>>::iterator it = hash_table.begin(), int i = 0; i < display_amount && it != hash_table.end(); it++) { //does not update i, updates after outputting element
+        //iterate through list associated with each index, incrementing i for each value outputted to display correct number of values
+        for (string str : it->second) {
+            cout << setw(spacing) << left << it->first << setw(spacing) << left << str << endl;
+            i++;
+        }
+    }
+}
 
 /**
  * Adds a string to the given hash table
