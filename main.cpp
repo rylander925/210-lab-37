@@ -10,13 +10,15 @@ IDE Used: Visual Studio Code
 #include <fstream>
 using namespace std;
 
-int sum_ascii(string);
-int read_file(string filename);
+int gen_hash_index(string);
+void read_file(string filename, map<int, list<string>>& hash_table);
+void hash_table_add(string str, map<int, list<string>>& hash_table);
 
 int main() {
     const string FILENAME = "data.txt";
+    map<int, list<string>> hash_table;
     cout << read_file(FILENAME) << endl;
-    
+
     return 0;
 }
 
@@ -29,12 +31,20 @@ E1D2665B21EA
 */
 
 /**
- * Reads and processes file contents
- * Currently sums ascii values of file
- * @param filename File to read
- * @return sum of ascii values of file contents (not including newlines)
+ * Adds a string to the given hash table
+ * @param str String to add
+ * @param hash_table Hash table to add to
  */
-int read_file(string filename) {
+void hash_table_add(string str, map<int, list<string>>& hash_table) {
+    hash_table[gen_hash_index(str)].push_front(str); //adds string to the front of the list of the associated hash index
+}
+
+/**
+ * Reads file contents into given hash table
+ * @param filename File to read
+ * @param hash_table Hash table to populate
+ */
+void read_file(string filename, map<int, list<string>>& hash_table) {
     //validate file opens properly
     ifstream infile;
     infile.open(filename);
@@ -44,20 +54,19 @@ int read_file(string filename) {
     }
 
     //iterate through file and process contents
-    int sum = 0;
     string str;
     while(getline(infile, str)) {
-        sum += sum_ascii(str);
+        hash_table_add(str, hash_table);
     }
-    return sum;
 }
 
 /**
- * Sums ascii values of the characters of the given string
- * @param str String whose ascii values will be summed
- * @return Sum of ascii values as an integer
+ * Generates a hash index for the given string
+ * Currently calculated as the sum of ascii values
+ * @param str Calculates hash value of this string
+ * @return Hash index of the string
  */
-int sum_ascii(string str) {
+int gen_hash_index(string str) {
     int sum = 0;
     for (char c : str) { //iterate through each character in str
         sum += (int) c;  //sum ascii value of each char
