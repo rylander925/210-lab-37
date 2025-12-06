@@ -12,13 +12,14 @@ IDE Used: Visual Studio Code
 using namespace std;
 
 const int STREAM_IGNORE_CHARS = 100;
+const int TABLE_DEFAULT_SPACING = 10;
 
 int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
 list<string>::iterator hash_table_search(string str, map<int, list<string>>& hash_table);
 bool hash_table_remove(string str, map<int, list<string>>& hash_table);
-void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing = 10);
+void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing = TABLE_DEFAULT_SPACING);
 
 int main() {
     const string FILENAME = "data.txt";
