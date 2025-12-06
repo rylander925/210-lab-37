@@ -16,6 +16,7 @@ int read_file(string filename);
 int main() {
     const string FILENAME = "data.txt";
     cout << read_file(FILENAME) << endl;
+    
     return 0;
 }
 
