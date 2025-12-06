@@ -26,6 +26,7 @@ int main() {
 
     map<int, list<string>> hash_table;
     int option;
+    string user_string;
     read_file(FILENAME, hash_table);
 
     do {
@@ -58,12 +59,18 @@ int main() {
                 hash_table_display(DISPLAY_AMOUNT, hash_table);
                 break;
             case SEARCH:
-                string query;
                 cout << "Enter a string to search for > ";
-                getline(cin, query);
-                hash_table_search(query, hash_table);
+                getline(cin, user_string);
+                hash_table_search(user_string, hash_table);
+                break;
+            case ADD:
+                cout << "Enter a string to add > ";
+                getline(cin, user_string);
+                hash_table_add(user_string, hash_table);
+                cout << "Added key \"" << user_string << "\" at hash index " << gen_hash_index(user_string) << endl; 
                 break;
         }
+        cout << endl;
     } while (option != EXIT);
     cout << "Exiting" << endl;
 }
