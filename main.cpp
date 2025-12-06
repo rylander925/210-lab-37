@@ -31,8 +31,9 @@ int main() {
     do {
         //Display menu
         cout << "Menu options: " << endl;
-        cout << " " << DISPLAY << ". Display" << endl;
-        cout << " " << SEARCH << ". Search" << endl;
+        cout << " " << DISPLAY << ". Display first 100 entries" << endl;
+        cout << " " << SEARCH << ". Search for a key" << endl;
+        cout << " " << ADD << ". Add a key" << endl;
         cout << " " << EXIT << ". Exit" << endl;
         do {
             //retrieve input for menu option
