@@ -32,6 +32,7 @@ int main() {
         //Display menu
         cout << "Menu options: " << endl;
         cout << " " << DISPLAY << ". Display" << endl;
+        cout << " " << SEARCH << ". Search" << endl;
         cout << " " << EXIT << ". Exit" << endl;
         do {
             //retrieve input for menu option
@@ -55,6 +56,12 @@ int main() {
                 cout << "Displaying first 100 entries" << endl;
                 hash_table_display(DISPLAY_AMOUNT, hash_table);
                 break;
+            case SEARCH:
+                string query;
+                cout << "Enter a string to search for > ";
+                getline(cin, query);
+                hash_table_search(query, hash_table);
+                break;
         }
     } while (option != EXIT);
     cout << "Exiting" << endl;
@@ -70,12 +77,17 @@ void hash_table_search(string str, map<int, list<string>>& hash_table) {
         //If hash index is found, finds the position of the string in the list
         int list_pos = 0;
         auto it = hash_table.at(index).begin();
-        while (it != hash_table.at(index).end() && *it != str) {
+        while (it != hash_table.at(index).end() && *it != str) { //iterates until end of list or until it finds the string to track list position
             it++;
             list_pos++;
         }
-        if (it == hash_table.at(index).end())
-        cout << "Key \"" << str << "\" found at hash index " << index << ", list index " << list_pos << endl;
+
+        //if found, outputs index and list position, or error otherwise
+        if (it != hash_table.at(index).end()) {
+            cout << "Key \"" << str << "\" found at hash index " << index << ", list index " << list_pos << endl;
+        } else {
+            cout << "Key \"" << str << "\" not found." << endl;
+        }
     } else {
         cout << "Key \"" << str << "\" not found." << endl;
     }
