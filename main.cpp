@@ -11,6 +11,8 @@ IDE Used: Visual Studio Code
 #include <fstream>
 using namespace std;
 
+const int STREAM_IGNORE_CHARS = 100;
+
 int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
@@ -19,10 +21,43 @@ void hash_table_display(int display_amount, map<int, list<string>>& hash_table, 
 int main() {
     const string FILENAME = "data.txt";
     const int DISPLAY_AMOUNT = 100;
+    enum Options{DISPLAY = 1, SEARCH = 2, ADD = 3, REMOVE = 4, MODIFY = 5, EXIT = 6};
+
     map<int, list<string>> hash_table;
+    int option;
 
     read_file(FILENAME, hash_table);
-    hash_table_display(DISPLAY_AMOUNT, hash_table);
+
+    do {
+        //Display menu
+        cout << "Menu options: " << endl;
+        cout << " " << DISPLAY << ". Display" << endl;
+        cout << " " << EXIT << ". Exit" << endl;
+        do {
+            //retrieve input for menu option
+            cout << "Enter menu choice: > ";
+            cin >> option;
+
+            //validate option input
+            if (cin.fail()) {
+                cout << "Option must be an integer" << endl;
+                option = DISPLAY - 1;
+            } else if (option < DISPLAY || option > EXIT) {
+                cout << "Option must be in range " << DISPLAY << " - " << EXIT << " inclusive" << endl;
+            }
+            cin.clear();
+            cin.ignore(STREAM_IGNORE_CHARS, '\n');
+        } while (option < DISPLAY || option > EXIT);
+
+        //execute menu function based on option
+        switch (option) {
+            case DISPLAY:
+                cout << "Displaying first 100 entries" << endl;
+                hash_table_display(DISPLAY_AMOUNT, hash_table);
+                break;
+        }
+    } while (option != EXIT);
+    cout << "Exiting" << endl;
 }
 
 /**
