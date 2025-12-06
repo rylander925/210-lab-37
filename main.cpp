@@ -17,7 +17,7 @@ int gen_hash_index(string);
 void read_file(string filename, map<int, list<string>>& hash_table);
 void hash_table_add(string str, map<int, list<string>>& hash_table);
 list<string>::iterator hash_table_search(string str, map<int, list<string>>& hash_table);
-void hash_table_remove(string str, map<int, list<string>>& hash_table);
+bool hash_table_remove(string str, map<int, list<string>>& hash_table);
 void hash_table_display(int display_amount, map<int, list<string>>& hash_table, int spacing = 10);
 
 int main() {
@@ -37,6 +37,7 @@ int main() {
         cout << " " << SEARCH << ". Search for a key" << endl;
         cout << " " << ADD << ". Add a key" << endl;
         cout << " " << REMOVE << ". Remove a key" << endl;
+        cout << " " << MODIFY << ". Modify a key" << endl;
         cout << " " << EXIT << ". Exit" << endl;
         do {
             //retrieve input for menu option
@@ -74,7 +75,18 @@ int main() {
             case REMOVE:
                 cout << "Enter a string to remove > ";
                 getline(cin, user_string);
-                hash_table_remove(user_string, hash_table);
+                if (hash_table_remove(user_string, hash_table)) cout << "Removed key \"" << user_string << "\"" << endl;
+                break;
+            case MODIFY: //modifies by removing then adding string
+                cout << "Enter a string to modify > ";
+                getline(cin, user_string);
+                if (hash_table_remove(user_string, hash_table)) {
+                    cout << "Enter a replacement string > ";
+                    getline(cin, user_string);
+                    hash_table_add(user_string, hash_table);
+                    cout << "Successfully modified to \"" << user_string << "\"" << endl;
+                }
+                break;
         }
         cout << endl;
     } while (option != EXIT);
@@ -85,16 +97,18 @@ int main() {
  * Removes the first instance of a string from the hash table if found
  * @param str String to remove
  * @param hash_table Hash table to search and remove from
+ * @return Returns true if element was found and deleted, false otherwise
  */
-void hash_table_remove(string str, map<int, list<string>>& hash_table) {
+bool hash_table_remove(string str, map<int, list<string>>& hash_table) {
     //searches for string
     auto it = hash_table_search(str, hash_table);
     if (it != hash_table.begin()->second.end()) {//error value returned if not found
 
         //removes that instance of the string, will not remove all duplicates if present
         hash_table.at(gen_hash_index(str)).erase(it);
-        cout << "Removed key \"" << str << "\"" << endl;
+        return true;
     }
+    return false;
 }
 
 /**
