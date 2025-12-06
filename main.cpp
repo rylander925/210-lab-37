@@ -25,7 +25,6 @@ int main() {
 
     map<int, list<string>> hash_table;
     int option;
-
     read_file(FILENAME, hash_table);
 
     do {
